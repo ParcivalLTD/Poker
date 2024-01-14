@@ -112,3 +112,10 @@ button:focus-visible {
 #players {
   list-style-type: none;
 }
+
+#exit-room,
+#exit-room2 {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}

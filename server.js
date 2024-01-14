@@ -23,7 +23,7 @@ io.on("connection", (socket) => {
 
   socket.on("create room", () => {
     const roomId = generateRandomId();
-    const username = generateUsername("", 0, 7);
+    const username = generateUsername("", 0, 10);
     socket.join(roomId);
     roomPlayers.set(roomId, [{ id: socket.id, username }]);
     socket.emit("room created", roomId, roomPlayers.get(roomId), username);
@@ -34,7 +34,7 @@ io.on("connection", (socket) => {
 
   socket.on("join room", (roomId, callback) => {
     if (generatedIds.has(roomId)) {
-      const username = generateUsername("", 0, 7);
+      const username = generateUsername("", 0, 10);
       socket.join(roomId);
       const players = roomPlayers.get(roomId);
       players.push({ id: socket.id, username });
@@ -75,6 +75,13 @@ io.on("connection", (socket) => {
       roomPlayers.set(currentRoomId, newPlayers);
       socket.to(currentRoomId).emit("player left", currentUsername);
       console.log(`Ein Spieler hat den Raum ${currentRoomId} verlassen`);
+    }
+  });
+
+  socket.on("start game", () => {
+    if (currentRoomId) {
+      io.to(currentRoomId).emit("game started");
+      console.log(`Das Spiel im Raum ${currentRoomId} wurde gestartet`);
     }
   });
 });
