@@ -1,24 +1,47 @@
-import './style.css'
-import javascriptLogo from './javascript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.js'
+import "./style.css";
+import { Hand } from "pokersolver";
 
-document.querySelector('#app').innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank">
-      <img src="${javascriptLogo}" class="logo vanilla" alt="JavaScript logo" />
-    </a>
-    <h1>Hello Vite!</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite logo to learn more
-    </p>
-  </div>
-`
+const deck = []; // Your deck of cards
+const players = []; // Array to store player hands
 
-setupCounter(document.querySelector('#counter'))
+// Function to initialize the game
+function initializeGame() {
+  initializeDeck();
+
+  // Deal cards to players
+  // ...
+
+  // Display player hands
+  displayHands();
+
+  // Determine winner
+  determineWinner();
+}
+
+function initializeDeck() {
+  const suits = ["h", "d", "c", "s"]; // Herz, Karo, Kreuz, Pik
+  const ranks = ["2", "3", "4", "5", "6", "7", "8", "9", "T", "J", "Q", "K", "A"]; // 2-10, Bube, Dame, König, Ass
+
+  for (let suit of suits) {
+    for (let rank of ranks) {
+      deck.push(rank + suit);
+    }
+  }
+}
+
+// Function to display player hands
+function displayHands() {
+  // Display player hands in the #game-container
+  // ...
+}
+
+// Function to determine the winner
+function determineWinner() {
+  const hands = players.map((player) => Hand.solve(player));
+  const winners = Hand.winners(hands);
+
+  console.log(winners[0].descr);
+}
+
+// Call the initializeGame function to start the game
+initializeGame();

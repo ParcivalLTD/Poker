@@ -4,11 +4,17 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "start": "concurrently \"npm run dev\" \"node server.js\"",
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
+    "concurrently": "^8.2.2",
     "vite": "^5.0.8"
+  },
+  "dependencies": {
+    "pokersolver": "^2.1.4",
+    "socket.io": "^4.7.4"
   }
 }
