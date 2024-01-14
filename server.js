@@ -88,6 +88,6 @@ function generateRandomId() {
   return id;
 }
 
-server.listen(3000, () => {
-  console.log(`Server läuft auf http://localhost:` + 3000);
+server.listen(69, () => {
+  console.log(`Server läuft auf http://localhost:` + 69);
 });
