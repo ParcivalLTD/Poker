@@ -7,7 +7,7 @@ window.onload = function () {
   lobbyDiv.style.display = "none";
 };
 
-let socketUrl = process.env.URL || "http://localhost:3000";
+let socketUrl = import.meta.env.URL || "http://localhost:3000";
 
 const socket = io(socketUrl);
 const hostButton = document.getElementById("host-game");
