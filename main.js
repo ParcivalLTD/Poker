@@ -1,5 +1,12 @@
 import "./style.css";
 import { Hand } from "pokersolver";
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost:3000");
+
+const urlParams = new URLSearchParams(window.location.search);
+const room = urlParams.get("=");
+socket.emit("join room", room);
 
 const deck = []; // Your deck of cards
 const players = []; // Array to store player hands
