@@ -8,6 +8,7 @@ window.onload = function () {
 };
 
 let socketUrl = import.meta.env.URL || "http://localhost:3000";
+console.log(socketUrl);
 
 const socket = io(socketUrl);
 const hostButton = document.getElementById("host-game");
