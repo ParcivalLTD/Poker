@@ -4,8 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "concurrently \"npm run dev\" \"node server.js\"",
-    "dev": "concurrently \"npm run start\" \"nodemon server.js\"",
+    "start": "concurrently \"npm run start\" \"node server.js\"",
+    "dev": "concurrently \"npm run dev\" \"nodemon server.js\"",
     "build": "vite build",
     "preview": "vite preview"
   },
