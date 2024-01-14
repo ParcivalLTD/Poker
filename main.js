@@ -2,11 +2,121 @@ import "./style.css";
 import { Hand } from "pokersolver";
 import { io } from "socket.io-client";
 
-const socket = io("http://localhost:3000");
+window.onload = function () {
+  gameDiv.style.display = "none";
+  lobbyDiv.style.display = "none";
+};
 
-const urlParams = new URLSearchParams(window.location.search);
-const room = urlParams.get("=");
-socket.emit("join room", room);
+const socket = io("http://localhost:3000");
+const hostButton = document.getElementById("host-game");
+const joinButton = document.getElementById("join-game");
+const roomIdInput = document.getElementById("room-id");
+
+hostButton.addEventListener("click", () => {
+  socket.emit("create room");
+});
+
+let username;
+
+joinButton.addEventListener("click", () => {
+  const roomId = roomIdInput.value.toLowerCase();
+  if (roomId) {
+    socket.emit("join room", roomId, (error, players, myUsername) => {
+      if (!error) {
+        username = myUsername;
+        loadLobby(players, roomId);
+      }
+    });
+  } else {
+    errorDiv.textContent = "Bitte gib eine Raum-ID ein.";
+  }
+});
+
+const playersDiv = document.getElementById("players");
+const gameDiv = document.getElementById("game");
+const lobbyDiv = document.getElementById("lobby");
+const startDiv = document.getElementById("home");
+const roomIdDiv = document.getElementById("room-id-display");
+
+socket.on("room created", (roomId, players, myUsername) => {
+  username = myUsername;
+  loadLobby(players, roomId);
+});
+
+socket.on("new player", (newPlayer) => {
+  if (newPlayer !== username) {
+    const li = document.createElement("li");
+    li.textContent = newPlayer;
+    playersDiv.appendChild(li);
+  }
+});
+
+socket.on("player left", (username) => {
+  Array.from(playersDiv.children).forEach((li) => {
+    if (li.textContent === username) {
+      playersDiv.removeChild(li);
+    }
+  });
+});
+
+function loadLobby(players, roomId) {
+  startDiv.style.display = "none";
+  lobbyDiv.style.display = "flex";
+  gameDiv.style.display = "none";
+  players = players.filter((player) => player.username !== username);
+  playersDiv.innerHTML = "";
+  players.forEach((player) => {
+    const li = document.createElement("li");
+    li.textContent = player.username;
+    playersDiv.appendChild(li);
+  });
+  document.getElementById("username").value = username;
+  roomIdDiv.textContent = roomId.toUpperCase();
+}
+
+socket.on("error", (errorMessage) => {
+  errorDiv.textContent = errorMessage;
+});
+
+const errorDiv = document.getElementById("error");
+
+document.getElementById("exit-room").addEventListener("click", () => {
+  window.location.reload();
+});
+
+document.getElementById("username").addEventListener("input", (event) => {
+  const newUsername = event.target.value;
+  if (newUsername.length < 3) {
+    errorDiv.textContent = "Der Benutzername muss mindestens 3 Zeichen lang sein.";
+  } else {
+    errorDiv.textContent = "";
+    socket.emit("username changed", newUsername);
+  }
+});
+
+socket.on("username updated", (oldUsername, newUsername) => {
+  const players = Array.from(playersDiv.children);
+  const playerLi = players.find((li) => li.textContent === oldUsername);
+  if (playerLi) {
+    playerLi.textContent = newUsername;
+  }
+});
+
+socket.on("username changed response", (response) => {
+  if (response.error) {
+    errorDiv.textContent = response.error;
+  } else {
+    username = response.newUsername;
+    document.getElementById("username").value = username;
+    const players = Array.from(playersDiv.children);
+    const playerLi = players.find((li) => li.textContent === username);
+    if (playerLi) {
+      playerLi.textContent = username;
+    }
+  }
+});
+
+/* ------------------------- */
 
 const deck = []; // Your deck of cards
 const players = []; // Array to store player hands
@@ -22,7 +132,7 @@ function initializeGame() {
   displayHands();
 
   // Determine winner
-  determineWinner();
+  //determineWinner();
 }
 
 function initializeDeck() {

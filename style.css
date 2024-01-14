@@ -26,6 +26,8 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
+  align-items: center;
+  justify-content: center;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -74,12 +76,19 @@ button:focus-visible {
   }
 }
 
-#game-container {
-  display: flex;
-  justify-content: center;
+#home,
+#game {
+  padding: 20px;
   align-items: center;
-  height: 100vh;
-  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+#lobby {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  gap: 25px;
 }
 
 .card {
@@ -91,4 +100,15 @@ button:focus-visible {
   border: 1px solid #000;
   border-radius: 5px;
   display: inline-block;
+}
+
+#joinGame {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 25px;
+}
+
+#players {
+  list-style-type: none;
 }
