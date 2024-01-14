@@ -9,7 +9,7 @@ window.onload = function () {
 
 let socketUrl = process.env.URL || "http://localhost:3000";
 
-const socket = io("");
+const socket = io(socketUrl);
 const hostButton = document.getElementById("host-game");
 const joinButton = document.getElementById("join-game");
 const roomIdInput = document.getElementById("room-id");
