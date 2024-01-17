@@ -1,0 +1,8 @@
+All stl files in this archive were converted by LDView from official LDraw Library http://www.ldraw.org/
+
+Files are licensed under the Creative Commons - Attribution license.
+http://creativecommons.org/licenses/by/2.0/
+
+Attribution:
+
+3794b - "Plate 1 x 2 with Groove with 1 Centre Stud" by Magnus Forsberg [MagFors]

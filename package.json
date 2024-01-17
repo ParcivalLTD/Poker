@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "start": "concurrently \"npm run start\" \"node server.js\"",
+    "start": "concurrently \"vite\" \"node server.js\"",
     "frontend": "npm run start",
     "backend": "node server.js",
     "dev": "concurrently \"npm run dev\" \"nodemon server.js\"",
@@ -23,6 +23,7 @@
     "pokersolver": "^2.1.4",
     "socket.io": "^4.7.4",
     "socket.io-client": "^4.7.4",
+    "three": "^0.160.0",
     "unique-username-generator": "^1.3.0"
   }
 }

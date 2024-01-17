@@ -2,12 +2,19 @@
 <html lang="de">
   <head>
     <meta charset="UTF-8" />
-    <title>Pokerspiel</title>
+    <title>Brickbattle</title>
     <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   </head>
+  <i id="loading-spinner" class="fas fa-spinner fa-spin"></i>
+
   <body>
       <div id="home">
-          <h1>Poker</h1>
+          <h1>Brickbattle</h1>
         <h2>Wähle eine Option</h2>
 
         <button id="host-game">Spiel hosten</button>
@@ -33,12 +40,45 @@
 
       <div id="game">
         <button id="exit-room2">exit</button>
-        <h2>Players</h2>
         <ul id="playersList"></ul>
-        <button id="draw">Draw Card</button>
-        <button id="discard">Discard Card</button>
-        <button id="end-turn">End Turn</button>
+
+        <div id="builderDiv" class="d-flex justify-content-center align-items-center position-relative vh-100 vw-100">
+          <div id="object-bar">
+            <input list="lego-colors" type="color" id="colorPicker" name="colorPicker" value="#ff0000" />
+    
+            <datalist id="lego-colors">
+              <option value="#F2CD37">Gelb</option>
+              <option value="#0057A8">Blau</option>
+              <option value="#EF7622">Orange</option>
+              <option value="#C91A09">Rot</option>
+              <option value="#4B9F4A">Grün</option>
+              <option value="#FFFFFF">Weiß</option>
+              <option value="#000000">Schwarz</option>
+            </datalist>
+    
+            <hr />
+          </div>
+          <canvas id="canvas"></canvas>
+          <div id="sideBar">
+            <canvas id="top-view"></canvas>
+            <div id="chat" class="d-flex flex-column justify-content-end mb-3">
+              <div id="chat-messages" class="mb-3"></div>
+    
+              <div id="chat-input" class="input-group">
+                <input type="text" class="form-control" placeholder="Nachricht eingeben..." />
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="button">
+                    <i class="fas fa-paper-plane"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
     <script type="module" src="/main.js"></script>
+    <script type="module" src="game.js"></script>
+
   </body>
 </html>

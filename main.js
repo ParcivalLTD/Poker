@@ -3,11 +3,12 @@ import { Hand } from "pokersolver";
 import { io } from "socket.io-client";
 
 window.onload = function () {
+  document.getElementById('loading-spinner').style.display = 'none';
   gameDiv.style.display = "none";
   lobbyDiv.style.display = "none";
 };
 
-let socketUrl = import.meta.env.VITE_SOCKET_URL || "http://localhost:3000";
+let socketUrl = import.meta.env.VITE_SOCKET_URL || "http://localhost:3030";
 
 const socket = io(socketUrl);
 const hostButton = document.getElementById("host-game");
